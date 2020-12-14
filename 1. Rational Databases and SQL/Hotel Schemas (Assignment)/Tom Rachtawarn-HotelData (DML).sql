@@ -84,7 +84,8 @@ insert into Reservation (RoomID, GuestID, Adults, Children, StartDate, ENdDate) 
     (206, 2, 2, 0, '2023/11/22', '2023/11/25'),
     (301, 2, 2, 2, '2023/11/22', '2023/11/25'),
     (302, 11, 2, 0, '2023/12/24', '2023/12/28');
-    
+
+SET SQL_SAFE_UPDATES = 0;
 -- Delete
 select * from guest where firstname = 'Jeremiah' and lastname = 'Pendergrass';
 delete from reservation where guestid = 8;
@@ -92,6 +93,7 @@ delete from guest where guestid = 8;
 -- Check
 select * from guest where guestid = 8;
 select * from reservation where guestid = 8;
+SET SQL_SAFE_UPDATES = 1;
 
 
 
