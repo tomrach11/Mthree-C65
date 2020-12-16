@@ -58,6 +58,12 @@ select w.name, c.firstname, c.lastname from client c
 select w.name as 'WorkoutName', g.name as 'GoalName' from workout w
 	join workoutgoal wg on wg.WorkoutId = w.WorkoutId
     join goal g on wg.GoalId = g.GoalId;
+    SELECT
+	w.`Name` WorkoutName,
+	g.`Name` GoalName
+FROM Workout w
+INNER JOIN WorkoutGoal wg ON w.WorkoutId = wg.WorkoutId
+INNER JOIN Goal g ON wg.GoalId = g.GoalId;
 
 -- Select FirstName and LastName from Client.
 -- Select ClientId and EmailAddress from Login.

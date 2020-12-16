@@ -120,6 +120,7 @@ select c.FirstName, c.LastName, count(cg.ClientId) as 'GoalsCount' from client c
 
 
 
+
 -- Modify the query above to include ExerciseCategory.Name.
 -- Order by ExerciseCategory.Name, then Exercise.Name, then Unit.Name.
 -- 82 rows
