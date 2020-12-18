@@ -28,9 +28,22 @@ public class ServiceLayerDB implements ServiceLayer {
     }
 
     @Override
-    public Round createRound(Round round) {
+    public Round createRound(Round round) throws InValidGuessException, InvalidGameIdException {
         //get game to check number with
         Game game = gameDao.getGameById(round.getGameId());
+
+        //CHECK USER INPUT
+        //check if guess is valid
+        isGuessValid(round);
+        //check if game id is not in database throw exception
+        if (game == null) {
+            throw new InvalidGameIdException("Invalid Game ID: This ID is not found in database.");
+        }
+        //check if game already finished
+        if (game.isFinished()) {
+            throw new InvalidGameIdException(("Invalid Game ID: This game is already complete."));
+        }
+
         //get the result and save to round object
         String result = getResult(round, game);
         round.setResult(result);
@@ -44,6 +57,7 @@ public class ServiceLayerDB implements ServiceLayer {
     @Override
     public List<Game> getAllGames() {
         List<Game> games = gameDao.getAllGame();
+        //hide result for any game that still in-progress
         for(Game game : games) {
             hideNumber(game);
         }
@@ -53,13 +67,44 @@ public class ServiceLayerDB implements ServiceLayer {
     @Override
     public Game getGameByGameId(int gameId) {
         Game game = gameDao.getGameById(gameId);
-        hideNumber(game);
-        return game;
+        if (game != null) {
+            //hide result if not finish
+            hideNumber(game);
+            return game;
+        }
+        return null;
     }
 
     @Override
-    public List<Round> getRoundByGameId(int gameId) {
+    public List<Round> getRoundByGameId(int gameId) throws InvalidGameIdException {
+        Game game = gameDao.getGameById(gameId);
+        if (game == null) {
+            throw new InvalidGameIdException("Invalid Game ID: This ID is not found in database.");
+        }
         return roundDao.getRoundsByGameId(gameId);
+    }
+
+    private boolean isGuessValid(Round round) throws InValidGuessException {
+        String guess = round.getGuess();
+        //check length
+        if (guess.length() != 4) {
+            throw new InValidGuessException("Invalid Guess: Guess number has to be exact 4 digits.");
+        }
+        //check if it is number
+        try {
+            int num = Integer.parseInt(guess);
+        } catch (Exception e) {
+            throw new InValidGuessException("Invalid Guess: Guess has to be number.");
+        }
+        //check no same number
+        for (int i = 0; i < guess.length() - 1; i++) {
+            for (int j = i + 1; j < guess.length(); j++) {
+                if(guess.charAt(i) == guess.charAt(j)) {
+                    throw new InValidGuessException("Invalid Guess: Each digit number has to be unique");
+                }
+            }
+        }
+        return true;
     }
 
     private void checkAndUpdateGame(Round round, Game game) {
@@ -74,7 +119,7 @@ public class ServiceLayerDB implements ServiceLayer {
             game.setNumber("In-progress: Number is Hidden");
         }
         return game;
-    }
+}
 
     private String generateNumber() {
         String number = "";

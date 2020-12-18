@@ -13,11 +13,6 @@ public class RoundDaoDB implements RoundDao {
     @Autowired
     JdbcTemplate jdbc;
 
-    @Override
-    public List<Round> getRoundsByGameId(int gameId) {
-        final String SELECT_ROUNDS_BY_GAMEID = "SELECT * FROM Round WHERE GameId = ? ORDER BY Time;";
-        return jdbc.query(SELECT_ROUNDS_BY_GAMEID, new RoundMapper(), gameId);
-    }
 
     @Override
     public Round addRound(Round round) {
@@ -66,6 +61,12 @@ public class RoundDaoDB implements RoundDao {
     public void deleteRound(int id) {
         final String DELETE_ROUND = "DELETE FROM Round WHERE RoundId = ?;";
         jdbc.update(DELETE_ROUND, id);
+    }
+
+    @Override
+    public List<Round> getRoundsByGameId(int gameId) {
+        final String SELECT_ROUNDS_BY_GAMEID = "SELECT * FROM Round WHERE GameId = ? ORDER BY Time;";
+        return jdbc.query(SELECT_ROUNDS_BY_GAMEID, new RoundMapper(), gameId);
     }
 
 }

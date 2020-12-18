@@ -2,6 +2,8 @@ package com.tr.guessnumber.controller;
 
 import com.tr.guessnumber.model.Game;
 import com.tr.guessnumber.model.Round;
+import com.tr.guessnumber.service.InValidGuessException;
+import com.tr.guessnumber.service.InvalidGameIdException;
 import com.tr.guessnumber.service.ServiceLayer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +24,7 @@ public class GuessNumberController {
     }
 
     @PostMapping("/guess")
-    public Round createRound(@RequestBody Round round) {
+    public Round createRound(@RequestBody Round round) throws InValidGuessException, InvalidGameIdException {
         return service.createRound(round);
     }
 
@@ -37,7 +39,7 @@ public class GuessNumberController {
     }
 
     @GetMapping("/rounds/{id}")
-    public List<Round> getRoundsByGameId(@PathVariable int id) {
+    public List<Round> getRoundsByGameId(@PathVariable int id) throws InvalidGameIdException {
         return service.getRoundByGameId(id);
     }
 
