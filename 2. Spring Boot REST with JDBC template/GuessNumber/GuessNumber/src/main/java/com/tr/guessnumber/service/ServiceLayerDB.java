@@ -24,7 +24,9 @@ public class ServiceLayerDB implements ServiceLayer {
         Game game = new Game();
         game.setNumber(generateNumber());
         game.setFinished(false);
-        return gameDao.addGame(game);
+        game = gameDao.addGame(game);
+        hideNumber(game);
+        return game;
     }
 
     @Override
@@ -117,10 +119,10 @@ public class ServiceLayerDB implements ServiceLayer {
 
     private Game hideNumber(Game game) {
         if (!game.isFinished()) {
-            game.setNumber("In-progress: Number is Hidden");
+            game.setNumber("****");
         }
         return game;
-}
+    }
 
     private String generateNumber() {
         String number = "";
