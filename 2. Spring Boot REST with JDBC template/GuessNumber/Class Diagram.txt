@@ -1,0 +1,50 @@
+Class Diagram
+===================
+
+Model
+===================
++ Game
+    - int gameId
+    - String number
+    - boolean finished
++ Round
+    - int roundId
+    - String guess
+    - LocalDateTime time 
+    - int gameId 
+    - String result
+
+DAO
+===================
++ RoundDao
+    + addRound(Round) Round
+    + getAllRound() List<Round>
+    + getRoundById(int) Round
+    + updateRound(Round) void
+    + delete(int) void 
+    + getRoundsByGameId(int) List<Round>
++ RoundMapper
++ GameDao
+    + addGame(Game) Game
+    + getAllGame() List<Game>
+    + getGameById() Game
+    + updateGame(Game) void
+    + deleteGame(int) void 
+
+Service
+===================
++ ServiceLayer
+    + createGame() Game
+    + createRound(Round) Round 
+    + getAllGame() List<Game>
+    + getGameById(id) Game
+    + getRoundsByGameId(id) Game
+
+Controller
+===================
++ Controller
+    + createGame() Game                     (/begin)
+    + createRound(Round) Round              (/guess)
+    + getAllGame() List<Game>               (/game)
+    + getGameById(int) Game                 (/game/{id})
+    + getRoundsByGameId(int) List<Round>    (/rounds/{id}) 
