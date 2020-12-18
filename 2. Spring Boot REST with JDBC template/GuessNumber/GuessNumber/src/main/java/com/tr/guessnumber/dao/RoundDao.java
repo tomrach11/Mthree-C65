@@ -10,4 +10,5 @@ public interface RoundDao {
     Round getRoundById(int id);
     void updateRound(Round round);
     void deleteRound(int id);
+    List<Round> getRoundsByGameId(int gameID);
 }

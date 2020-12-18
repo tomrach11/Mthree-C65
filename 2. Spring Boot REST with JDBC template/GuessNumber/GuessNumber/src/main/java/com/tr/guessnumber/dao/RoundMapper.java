@@ -17,6 +17,7 @@ public class RoundMapper implements RowMapper<Round> {
         LocalDateTime time = rs.getTimestamp("Time").toLocalDateTime();
         round.setTime(time);
         round.setGameId(rs.getInt("GameId"));
+        round.setResult(rs.getString("Result"));
 
         return round;
     }

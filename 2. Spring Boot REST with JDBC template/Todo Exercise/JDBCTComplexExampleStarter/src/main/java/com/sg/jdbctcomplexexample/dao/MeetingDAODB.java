@@ -20,6 +20,7 @@ public class MeetingDAODB implements MeetingDao {
     @Autowired
     JdbcTemplate jdbc;
 
+
     @Override
     public List<Meeting> getAllMeetings() {
         final String SELECT_ALL_MEETINGS = "SELECT * FROM meeting";

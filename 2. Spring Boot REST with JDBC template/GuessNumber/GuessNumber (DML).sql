@@ -5,12 +5,12 @@ INSERT INTO Game (Number) VALUES
     ("2679"),
     ("7894");
     
-INSERT INTO Round (GameId, Guess) VALUE (1, "1278");
-INSERT INTO Round (GameId, Guess) VALUE (1, "5712");
-INSERT INTO Round (GameId, Guess) VALUE (1, "3412");
-INSERT INTO Round (GameId, Guess) VALUE (1, "1234");
-INSERT INTO Round (GameId, Guess) VALUE (2, "5712");
-INSERT INTO Round (GameId, Guess) VALUE (2, "2091");
+INSERT INTO Round (GameId, Guess, Result) VALUE (1, "1278", "e0:p0");
+INSERT INTO Round (GameId, Guess, Result) VALUE (1, "5712", "e0:p0");
+INSERT INTO Round (GameId, Guess, Result) VALUE (1, "3412", "e0:p0");
+INSERT INTO Round (GameId, Guess, Result) VALUE (1, "1234", "e0:p0");
+INSERT INTO Round (GameId, Guess, Result) VALUE (2, "5712", "e0:p0");
+INSERT INTO Round (GameId, Guess, Result) VALUE (2, "2091", "e0:p0");
     
 UPDATE Game SET
 	Finished = 1

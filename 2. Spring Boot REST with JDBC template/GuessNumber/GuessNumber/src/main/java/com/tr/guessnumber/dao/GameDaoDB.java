@@ -1,6 +1,7 @@
 package com.tr.guessnumber.dao;
 
 import com.tr.guessnumber.model.Game;
+import com.tr.guessnumber.model.Round;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -46,9 +47,9 @@ public class GameDaoDB implements GameDao {
 
     @Override
     public void updateGame(Game game) {
-        final String UPDATE_GAME = "UPDATE Game SET" +
+        final String UPDATE_GAME = "UPDATE Game SET " +
                 "Number = ?," +
-                "Finished = ?" +
+                "Finished = ? " +
                 "WHERE GameId = ?;";
         jdbc.update(UPDATE_GAME, game.getNumber(), game.isFinished(), game.getGameId());
     }
