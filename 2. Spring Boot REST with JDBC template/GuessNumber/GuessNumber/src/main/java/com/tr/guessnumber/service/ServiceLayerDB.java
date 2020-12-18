@@ -77,6 +77,7 @@ public class ServiceLayerDB implements ServiceLayer {
 
     @Override
     public List<Round> getRoundByGameId(int gameId) throws InvalidGameIdException {
+        //check if gameId is valid
         Game game = gameDao.getGameById(gameId);
         if (game == null) {
             throw new InvalidGameIdException("Invalid Game ID: This ID is not found in database.");
